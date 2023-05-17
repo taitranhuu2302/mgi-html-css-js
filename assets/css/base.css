@@ -191,6 +191,11 @@ textarea {
     font: inherit; /* 2 */
 }
 
+.mgi_space-y-element {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
 
 details {
     display: block;
@@ -248,21 +253,53 @@ template {
     padding-inline: 15px;
 }
 
+.mgi_primary-color {
+    color: var(--primary-color);
+}
+
+.mgi_line {
+    display: block;
+    width: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-top: 2px solid;
+    border-color: var(--primary-color);
+}
+
 .mgi_text--white {
-    color: var(--white-color);
+    color: var(--white-color) !important;
 }
 .mgi_text--black {
     color: var(--white-color);
 }
 
 .mgi_subtitle {
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 600;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.mgi_text--center {
+    text-align: center;
+}
+
+.mgi_title {
+    margin: 0 0 15px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #222;
+    font-family: var(--font-poppins);
+}
+
+.mgi_mx-auto {
+    margin-inline: auto;
 }
 
 .mgi_text {
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.9;
+    color: #434955;
 }
 
 ul {
