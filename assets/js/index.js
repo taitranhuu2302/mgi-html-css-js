@@ -122,7 +122,7 @@ function activePaginationSlideTop(target) {
 paginationSlideTop.forEach((item, index) => {
   item.addEventListener("click", () => {
     slideTop.style.transform = `translateX(-${33.33 * index}%)`;
-    activePaginationSlideTop(item)
+    activePaginationSlideTop(item);
   });
 });
 
@@ -134,7 +134,7 @@ btnSlideTopNext.addEventListener("click", () => {
     activeSlideTopCount = 0;
   }
   activeSlideTop(listChildSlideTop[activeSlideTopCount]);
-  activePaginationSlideTop(paginationSlideTop[activeSlideTopCount])
+  activePaginationSlideTop(paginationSlideTop[activeSlideTopCount]);
   slideTop.style.transform = `translateX(-${33.33 * activeSlideTopCount}%)`;
 });
 
@@ -145,32 +145,56 @@ btnSlideTopPrev.addEventListener("click", () => {
     activeSlideTopCount = countChild - 1;
   }
   activeSlideTop(listChildSlideTop[activeSlideTopCount]);
-  activePaginationSlideTop(paginationSlideTop[activeSlideTopCount])
+  activePaginationSlideTop(paginationSlideTop[activeSlideTopCount]);
   slideTop.style.transform = `translateX(-${33.33 * activeSlideTopCount}%)`;
 });
 // End Slideshow Top
 
 // Slideshow Projects
-const parentProjects = document.querySelector(".mgi_projects")
-const projects = parentProjects.querySelectorAll(".mgi_projects > div")
-const btnPrevProject = document.querySelector("#projects .mgi_slideshow_prev")
-const btnNextProject = document.querySelector("#projects .mgi_slideshow_next")
+const arrowsProjects = document.querySelectorAll("#projects .mgi_btn");
+const projectSlide = document.querySelector("#projects .mgi_projects");
 
-let widthProject = projects[0].offsetWidth;
-
-function slideProjectToRight() {
-  parentProjects.style.transform = `translateX(-${widthProject + 20}px)`;
-}
-function slideProjectToLeft() {
-  parentProjects.style.transform = `translateX(${widthProject + 20}px)`;
-}
-
-btnNextProject.addEventListener("click", () => {
-  slideProjectToRight()
-})
-
-btnPrevProject.addEventListener("click", () => {
-  slideProjectToLeft()
-})
-
+arrowsProjects.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const role = btn.getAttribute("data-role");
+    const firstItem = document.querySelectorAll(
+      "#projects .mgi_projects > div"
+    )[0];
+    const SPACE_X_ELEMENT = 20;
+    
+    if (projectSlide.scrollLeft >= projectSlide.scrollWidth - projectSlide.clientWidth) {
+      projectSlide.scrollLeft = 0;
+      return;
+    }
+    const firstItemWidth = firstItem.clientWidth + SPACE_X_ELEMENT;
+    projectSlide.scrollLeft +=
+      role === "left" ? -firstItemWidth : firstItemWidth;
+  });
+});
 // End Slideshow Projects
+
+// End Slides Auto
+
+function autoSlides(parent, firstChildWidth, spaceXElement) {
+  if (parent.scrollLeft >= parent.scrollWidth - parent.clientWidth) {
+    parent.scrollLeft = 0;
+    return;
+  }
+  parent.scrollLeft += firstChildWidth + spaceXElement;
+}
+setInterval(() => {
+  const parent = document.querySelector(".mgi_testimonial__slides");
+  const firstChildWidth = document.querySelector(
+    ".mgi_testimonial__slides .mgi_slides__item"
+  ).clientWidth;
+  autoSlides(parent, firstChildWidth, 20);
+}, 3000);
+
+setInterval(() => {
+  const parent = document.querySelector(".mgi_news__slides");
+  const firstChildWidth = document.querySelector(
+    ".mgi_news__slides > div"
+  ).clientWidth;
+  autoSlides(parent, firstChildWidth, 10);
+}, 3500);
+// End Slides Auto
